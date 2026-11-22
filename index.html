@@ -108,7 +108,6 @@ main{padding-bottom:72px}
 <body>
 <header class="pad">
  <h1>Wish list 2026</h1>
- <p id="intro"></p>
 </header>
 <nav id="nav"><div class="cats pad" id="cats"></div></nav>
 <div class="pills pad" id="pills"></div>
@@ -166,7 +165,7 @@ const esc=(s)=>String(s).replace(/[&<>"]/g,(m)=>({"&":"&amp;","<":"&lt;",">":"&g
 const tierOf=(t)=>TIERS.find((x)=>x[0]===t);
 const inTier=(it)=>{const t=tierOf(tier);return it.wild||(it.p>=t[2]&&it.p<t[3])};
 const real=I.filter((i)=>!i.wild);
-$("#intro").textContent=`Things I'd love this Christmas. Tap one for more info and where to buy it.`;
+
 const src=(it)=>it.c==="books"?`img/${it.img}.webp`:`sq/${it.sq}.jpg`;
 const has=(it)=>it.img||it.sq;
 const pic=(it)=>has(it)?`<img src="${src(it)}" alt="${esc(it.n)}"${it.c==="books"?' class="cover"':''} loading="lazy">`:`<span class="ph">photo coming</span>`;
@@ -200,7 +199,7 @@ const fs=Math.max(10,Math.min(sw*x.g*.5,26,H*x.hf*.7/(t.length*((mono?.64:x.fw?.
 const setAct=(i)=>{if(i===act)return;act=i;document.querySelectorAll(".book").forEach((b)=>b.classList.toggle("on",+b.dataset.b===i));sizeShelf()};
 const render=()=>{drawBar();const isB=cat==="books"&&!MOB(),withS=(cat==="books"||cat==="all")&&!MOB();$("#shelfBand").hidden=!withS;$("#gridBand").hidden=isB;
 if(withS&&!isB){$("#shelfBand").innerHTML=shelf();requestAnimationFrame(sizeShelf)}
-if(isB){$("#shelfBand").innerHTML=shelf();requestAnimationFrame(()=>{sizeShelf();const y=$("#pills").getBoundingClientRect().top+scrollY-$("#nav").offsetHeight;if(Math.abs(scrollY-y)>4)window.scrollTo({top:y,behavior:"smooth"})});return}
+if(isB){$("#shelfBand").innerHTML=shelf();requestAnimationFrame(sizeShelf);return}
 const list=I.map((it,i)=>[it,i]).filter(([it])=>(MOB()||it.c!=="books")&&(cat==="all"||it.c===cat)&&inTier(it));
 $("#grid").innerHTML=list.length?list.map(([it,i])=>`<article class="item"><button class="frame" data-i="${i}" aria-label="More info: ${esc(it.n)}">${pic(it)}</button><div class="cap">${capt(it,i)}</div></article>`).join(''):`<p class="empty">Nothing in this price range.</p>`};
 const open=(i)=>{const it=I[i],d=$("#drawer");
