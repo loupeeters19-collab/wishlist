@@ -75,6 +75,13 @@ main{padding-bottom:72px}
 .bcap h3{font:400 24px/1.15 Abel,"Arial Narrow",sans-serif;margin:0 0 4px}
 .bcap .price{font-size:20px}
 .shelfspace{height:160px}
+.mshelf{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;padding:0 16px 40px;scrollbar-width:none}
+.mshelf::-webkit-scrollbar{display:none}
+.mb{flex:none;width:min(62vw,240px);scroll-snap-align:start;display:flex;flex-direction:column;gap:3px}
+.mcov{appearance:none;border:0;background:none;padding:0;height:min(92vw,330px);display:flex;align-items:flex-end;justify-content:flex-start;cursor:pointer;margin-bottom:12px}
+.mcov img{height:100%;width:auto;max-width:100%;object-fit:contain;object-position:left bottom}
+.mb h3{font:400 18px/1.2 Abel,"Arial Narrow",sans-serif;margin:0}
+.mb .price{font-size:16px}
 .plank .row{border-bottom:0}
 .board{position:relative;height:28px;margin:0 -14px;background:linear-gradient(180deg,#f7f6f3 0,#f7f6f3 5px,#eeece7 6px,#e6e3dc 100%);border-top:1px solid #dcd8d0;border-radius:1px 1px 3px 3px;box-shadow:0 1px 0 #d6d2c9,0 18px 22px -14px rgb(0 0 0/.28)}
 .board::before{content:"";position:absolute;left:0;right:0;top:-7px;height:6px;background:linear-gradient(180deg,rgb(0 0 0/0),rgb(0 0 0/.05))}
@@ -169,13 +176,15 @@ const drawBar=()=>{
 $("#cats").innerHTML=CATS.map(([k,l])=>`<button aria-pressed="${k===cat}" data-k="${k}">${l}<sup>${real.filter((i)=>k==="all"||i.c===k).length}</sup></button>`).join('');
 const pool=real.filter((i)=>cat==="all"||i.c===cat);
 $("#pills").innerHTML=TIERS.filter(([k,,lo,hi])=>k==="any"||pool.some((i)=>i.p>=lo&&i.p<hi)).map(([k,l])=>`<button aria-pressed="${k===tier}" data-t="${k}">${l}</button>`).join('')};
+const MOB=()=>innerWidth<600;
 const shelf=()=>{const bs=I.map((b,i)=>[b,i]).filter(([b])=>b.c==="books"&&inTier(b));
 if(!bs.length)return '';
+if(MOB())return `<div class="mshelf">${bs.map(([b,i])=>`<div class="mb"><button class="mcov" data-i="${i}" aria-label="More info: ${esc(b.n)}"><img src="img/${b.img}.webp" alt="Cover of ${esc(b.n)}" style="aspect-ratio:${b.r}"></button><div class="top"><h3>${esc(b.n)}</h3></div><span class="price">${b.pl}</span><span class="sub">${esc(b.by)} · ${esc(b.shop)}</span><button class="more" data-i="${i}">more info</button></div>`).join('')}</div>`;
 return `<div class="shelf${cat==="all"?" plank":""}" id="shelf"><div class="row">${bs.map(([b,i])=>`<div class="book${i===act?" on":""}" data-b="${i}" tabindex="0" role="button" aria-label="${esc(b.n)}" style="--sc:${b.sc};--st:${b.st};--ff:${b.ff};--fw:${b.fw||400};--ls:${b.ls};--g:${b.g};--hf:${b.hf}">
 <div class="bwrap"><div class="stage"><div class="face spine"><span class="a">${esc(b.by.split(" & ")[0].split(" ").slice(-1)[0].toUpperCase())}</span><span class="t">${esc(b.sp||b.n)}</span><span class="p">${b.pub}</span></div>
 <div class="face front"><img src="img/${b.img}.webp" alt="Cover of ${esc(b.n)}"></div></div>
 <div class="bcap"><div class="top"><h3>${esc(b.n)}</h3><span class="price">${b.pl}</span></div><span class="sub">${esc(b.by)} · ${esc(b.shop)}</span><br><button class="more" data-i="${i}">more info</button></div></div></div>`).join('')}</div><div class="shelfspace"></div></div>`};
-const sizeShelf=()=>{const s=$("#shelf");if(!s)return;const nh=$("#nav").offsetHeight;document.documentElement.style.setProperty("--navh",nh+"px");
+const sizeShelf=()=>{const s=$("#shelf");if(!s||MOB())return;const nh=$("#nav").offsetHeight;document.documentElement.style.setProperty("--navh",nh+"px");
 const ph=$("#pills").offsetHeight;const row=s.querySelector(".row");const W=row.clientWidth,mob=W<600;
 const H0=Math.max(280,Math.min(cat==="all"?520:640,innerHeight-nh-ph-(mob?190:230)));
 const allB=[...s.querySelectorAll(".book")].map((b)=>I[+b.dataset.b]);const gS=allB.reduce((t,x)=>t+x.g,0);const rM=Math.max(...allB.map((x)=>x.hf*x.r));
@@ -211,7 +220,7 @@ document.addEventListener("mouseover",(e)=>{const b=e.target.closest("[data-b]")
 document.addEventListener("focusin",(e)=>{const b=e.target.closest&&e.target.closest("[data-b]");if(b)setAct(+b.dataset.b)});
 document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();if(e.key==="Enter"&&e.target.classList&&e.target.classList.contains("book"))open(+e.target.dataset.b)});
 $("#scrim").addEventListener("click",close);
-const ro=new ResizeObserver(sizeShelf);ro.observe(document.body);
+let wasM=MOB();const ro=new ResizeObserver(()=>{if(MOB()!==wasM){wasM=MOB();render()}else sizeShelf()});ro.observe(document.body);
 const fromHash=()=>{const h=location.hash.slice(1);cat=CATS.some((c)=>c[0]===h)?h:"all";tier="any";render()};
 window.addEventListener("hashchange",fromHash);fromHash();
 }
