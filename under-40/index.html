@@ -116,7 +116,7 @@ main{padding-bottom:72px}
 <div id="dw"><div class="scrim" id="scrim"></div><aside class="drawer" id="drawer" aria-label="Item details" tabindex="-1"></aside></div>
 <script>
 {
-const CATS=[["all","All"],["clothes","Clothes & accessoires"],["home","Home"],["books","Books"],["glass","Glass"],["tech","Tech"]];
+const CATS=[["all","All"],["clothes","Clothes & accessoires"],["home","Home"],["books","Books"],["tech","Tech"]];
 const TIERS=[["any","Any price",0,1e9],["t1","Under €20",0,20],["t2","€20 – 30",20,30],["t3","€30 – 40",30,40]];
 const I=[
 {c:"books",img:"b-timemachine",r:.666,sc:"#e2e1dc",st:"#77777a",ff:"'Bebas Neue',sans-serif",ls:".22em",g:1.1,hf:.95,pub:"JI",n:"The Time Machine",by:"H. G. Wells",shop:"Jhambo Ink",p:360,pl:"€360",orig:"£315",d:"Collector's edition with silver ink on three papers that go from light to dark as the story moves on, hidden fold-out illustrations, and The Chronic Argonauts, Wells's earlier version of the idea.",u:"https://jhamboink.com/the-time-machine/"},
@@ -158,7 +158,7 @@ const I=[
 {c:"tech",sq:"fitbit",n:"Google Fitbit Air",shop:"Google Store",p:99.99,pl:"€99.99",note:"Black",d:"A light activity and sleep tracker for the wrist.",u:"https://store.google.com/be/product/google_fitbit_air?hl=nl"},
 {c:"tech",sq:"microduck",n:"Microduck",shop:"Pollen Robotics",p:340,pl:"€340",d:"A small walking robot duck with an open-source SDK, for AI experiments and play.",u:"https://store.pollen-robotics.com/products/microduck"}
 ];
-{const keep=I.filter((x)=>x.p<40&&x.sq!=="zalto");I.length=0;I.push(...keep);}
+{const keep=I.filter((x)=>x.p<40&&x.c!=="glass");I.length=0;I.push(...keep);}
 
 let cat="all",tier="any",act=-1;
 const $=(s)=>document.querySelector(s);
