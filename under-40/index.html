@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Wishlist 2026 · under €40</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Cormorant+Garamond:wght@500;700&family=Inter:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* VOICE: quiet, editorial, a shop catalogue page
+   IDEA: the owner's own magazine wish-list spreads: objects in even square photos, name and price beneath
+   PICTURE: the product photos themselves; books stand on a full-width shelf of realistic spines
+   COLOUR and TYPE: white, ink, soft grey; Abel for names and prices, Inter light for small text
+   LAYOUT: thin header, category line, price pills on top of each page, an even square grid, a side panel */
+:root{color-scheme:light dark;--bg:light-dark(#fff,#111);--ink:light-dark(#141414,#efefef);--mute:light-dark(#9b9b9b,#7d7d7d);--line:light-dark(#e8e8e8,#2a2a2a);--tile:light-dark(#f3f3f1,#1c1c1c)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:var(--navh,60px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 14px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+.pad{padding-inline:max(4vw,16px)}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(20px,3vw,36px)}
+h1{font:400 clamp(44px,7vw,96px)/.95 Abel,"Arial Narrow",sans-serif;margin:0;letter-spacing:-.01em}
+header p{margin:0;color:var(--mute);max-width:34ch;text-align:right}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cats{display:flex;flex-wrap:wrap;gap:0 22px;padding-block:6px}
+.cats button{appearance:none;border:0;background:none;color:var(--mute);font:400 18px/1 Abel,"Arial Narrow",sans-serif;padding:0;min-height:42px;cursor:pointer}
+.cats button sup{font-size:10px;margin-left:2px}
+.cats button[aria-pressed=true]{color:var(--ink);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;padding-top:clamp(20px,3vw,36px);padding-bottom:clamp(20px,3vw,32px)}
+.pills button{appearance:none;border:1px solid var(--line);background:none;color:var(--ink);font:400 15px/1 Abel,"Arial Narrow",sans-serif;padding:0 16px;min-height:38px;border-radius:99px;cursor:pointer;white-space:nowrap}
+.pills button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,a:focus-visible,.book:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+main{padding-bottom:72px}
+.grid{--gx:clamp(14px,2vw,28px);display:grid;grid-template-columns:repeat(auto-fill,minmax(max(min(100%,230px),calc((100% - 3*var(--gx))/4)),1fr));gap:clamp(36px,4vw,52px) var(--gx)}
+.item{display:flex;flex-direction:column}
+.frame{appearance:none;border:0;padding:0;cursor:pointer;aspect-ratio:1/1;position:relative;width:100%;background:var(--tile);overflow:hidden}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.frame img.cover{inset:auto;top:50%;left:50%;width:auto;height:78%;transform:translate(-50%,-50%);box-shadow:0 12px 24px rgb(0 0 0/.14)}
+.item:hover .frame img.cover{transform:translate(-50%,-50%) scale(1.03)}
+.item:hover .frame img{transform:scale(1.03)}
+.ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);font:400 15px Abel,sans-serif}
+.cap{display:flex;flex-direction:column;gap:3px;padding-top:14px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cap h3{font:400 18px/1.2 Abel,"Arial Narrow",sans-serif;margin:0}
+.price{font:400 18px/1.2 Abel,"Arial Narrow",sans-serif;white-space:nowrap}
+.sub{color:var(--mute);font-size:12.5px;line-height:1.45}
+.more{align-self:flex-start;appearance:none;border:0;background:none;padding:0;margin-top:6px;color:var(--ink);font:400 15px/1 Abel,"Arial Narrow",sans-serif;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;min-height:30px}
+.empty{grid-column:1/-1;color:var(--mute)}
+/* shelf */
+.shelf{display:flex;flex-direction:column;padding:0 max(4vw,16px) 24px}
+.row{display:flex;align-items:flex-end;gap:2px;perspective:1800px}
+.book{flex:0 0 calc(var(--g)*var(--sw,48px));display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;min-width:0;outline:none;transition:flex .55s cubic-bezier(.6,.05,.2,1),margin .55s cubic-bezier(.6,.05,.2,1)}
+.book.on{flex:0 0 var(--cw);margin-inline:clamp(12px,2.4vw,32px)}
+.stage{height:calc(var(--sh,400px)*var(--hf));position:relative;transform-style:preserve-3d}
+.face{position:absolute;inset:0;backface-visibility:hidden;transition:transform .55s cubic-bezier(.6,.05,.2,1),opacity .4s}
+.spine{background-color:var(--sc);color:var(--st);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 0 16px;transform-origin:right center;overflow:hidden;border-radius:3px 3px 1px 1px;
+ background-image:linear-gradient(90deg,rgb(0 0 0/.34) 0%,rgb(0 0 0/.08) 6%,rgb(255 255 255/.22) 16%,rgb(255 255 255/.06) 30%,rgb(0 0 0/0) 52%,rgb(0 0 0/.07) 78%,rgb(0 0 0/.22) 94%,rgb(0 0 0/.4) 100%),
+ repeating-linear-gradient(0deg,rgb(255 255 255/.035) 0 1px,rgb(0 0 0/.03) 1px 2px,transparent 2px 4px),
+ repeating-linear-gradient(90deg,rgb(0 0 0/.025) 0 1px,transparent 1px 3px);
+ box-shadow:inset 0 3px 2px -1px rgb(255 255 255/.35),inset 0 -3px 3px -1px rgb(0 0 0/.25)}
+.spine::before,.spine::after{content:"";position:absolute;left:10%;right:10%;height:0;border-top:1px solid currentColor;opacity:.35}
+.spine::before{top:12px}.spine::after{bottom:38px}
+.spine .a{writing-mode:vertical-rl;transform:rotate(180deg);font:400 11px/1 Inter,sans-serif;opacity:.85;white-space:nowrap;letter-spacing:.06em;max-height:26%;overflow:hidden}
+.spine .t{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--ff);font-weight:var(--fw,400);letter-spacing:var(--ls);font-size:var(--fs,20px);line-height:1;white-space:nowrap;overflow:hidden;max-height:80%}
+.spine .p{font:700 11px/1 'Cormorant Garamond',serif;letter-spacing:.04em;opacity:.9}
+.front{transform:rotateY(90deg);transform-origin:left center;opacity:0}
+.front{overflow:hidden}.front img{position:absolute;left:0;bottom:0;width:var(--bw);height:100%;object-fit:fill;max-width:none}
+.book.on .spine{transform:rotateY(-90deg);opacity:0}
+.book.on .front{transform:none;opacity:1}
+.bcap{position:absolute;left:0;right:0;top:100%;padding-top:20px;width:max(100%,260px);opacity:0;transition:opacity .35s .15s;pointer-events:none}
+.book.on .bcap{opacity:1;pointer-events:auto}
+.bwrap{position:relative}
+.bcap h3{font:400 24px/1.15 Abel,"Arial Narrow",sans-serif;margin:0 0 4px}
+.bcap .price{font-size:20px}
+.shelfspace{height:160px}
+.mshelf{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;padding:0 16px 40px;scrollbar-width:none}
+.mshelf::-webkit-scrollbar{display:none}
+.mb{flex:none;width:min(58vw,220px);scroll-snap-align:start;display:flex;flex-direction:column;gap:3px}
+.mcov{appearance:none;border:0;background:none;padding:0;width:100%;height:calc(min(58vw,220px)*1.5);overflow:hidden;display:block;cursor:pointer;margin-bottom:12px}
+.mcov img{width:100%;height:100%;object-fit:cover;display:block}
+.mb h3{font:400 18px/1.2 Abel,"Arial Narrow",sans-serif;margin:0}
+.mb .price{font-size:16px}
+.plank .row{border-bottom:0}
+.board{position:relative;height:28px;margin:0 -14px;background:linear-gradient(180deg,#f7f6f3 0,#f7f6f3 5px,#eeece7 6px,#e6e3dc 100%);border-top:1px solid #dcd8d0;border-radius:1px 1px 3px 3px;box-shadow:0 1px 0 #d6d2c9,0 18px 22px -14px rgb(0 0 0/.28)}
+.board::before{content:"";position:absolute;left:0;right:0;top:-7px;height:6px;background:linear-gradient(180deg,rgb(0 0 0/0),rgb(0 0 0/.05))}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgb(0 0 0/.18);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(440px,100%);background:var(--bg);z-index:21;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);overflow-y:auto;padding:20px clamp(20px,4vw,36px) 40px;border-left:1px solid var(--line)}
+.open .scrim{opacity:1;pointer-events:auto}.open .drawer{transform:none}
+.x{float:right;appearance:none;border:0;background:none;color:var(--ink);font:400 17px Abel,sans-serif;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.art{aspect-ratio:1/1;margin:52px 0 24px;background:var(--tile);position:relative;overflow:hidden}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art img.cover{inset:auto;top:50%;left:50%;width:auto;height:80%;transform:translate(-50%,-50%);filter:drop-shadow(0 10px 16px rgb(0 0 0/.14))}
+.drawer h3{font:400 30px/1.1 Abel,"Arial Narrow",sans-serif;margin:6px 0 4px}
+.drawer .pr{font:400 22px Abel,sans-serif;margin:0 0 14px}
+.drawer .note{margin:0 0 10px}
+.go{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;margin-top:10px;background:none;color:var(--ink);border:1px solid var(--line);text-decoration:none;font:400 17px Abel,sans-serif;border-radius:6px}.go:hover{border-color:var(--ink)}
+@media(max-width:700px){header{flex-direction:column;align-items:flex-start}header p{text-align:left}
+ .cats,.pills{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.cats>*,.pills>*{flex:none}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 12px}.cap h3,.price{font-size:16px}.top{flex-direction:column;gap:2px}
+ .spine .a{display:none}.spine .t{font-size:13px}.spine::after{bottom:30px}.bcap h3{font-size:20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="pad">
+ <h1>Wish list 2026</h1>
+</header>
+<nav id="nav"><div class="cats pad" id="cats"></div></nav>
+<div class="pills pad" id="pills"></div>
+<section id="shelfBand" hidden></section>
+<main id="gridBand" class="pad"><div class="grid" id="grid"></div></main>
+<div id="dw"><div class="scrim" id="scrim"></div><aside class="drawer" id="drawer" aria-label="Item details" tabindex="-1"></aside></div>
+<script>
+{
+const CATS=[["all","All"],["clothes","Clothes & accessoires"],["home","Home"],["books","Books"],["glass","Glass"],["tech","Tech"]];
+const TIERS=[["any","Any price",0,1e9],["t1","Under €20",0,20],["t2","€20 – 30",20,30],["t3","€30 – 40",30,40]];
+const I=[
+{c:"books",img:"b-timemachine",r:.666,sc:"#e2e1dc",st:"#77777a",ff:"'Bebas Neue',sans-serif",ls:".22em",g:1.1,hf:.95,pub:"JI",n:"The Time Machine",by:"H. G. Wells",shop:"Jhambo Ink",p:360,pl:"€360",orig:"£315",d:"Collector's edition with silver ink on three papers that go from light to dark as the story moves on, hidden fold-out illustrations, and The Chronic Argonauts, Wells's earlier version of the idea.",u:"https://jhamboink.com/the-time-machine/"},
+{c:"books",img:"b-bartleby",r:.611,sc:"#8e0b19",st:"#f4dada",ff:"'Space Mono',monospace",ls:".02em",g:.75,hf:.9,pub:"JI",n:"Bartleby, the Scrivener",by:"Herman Melville",shop:"Jhambo Ink",p:158,pl:"€158",orig:"£137",d:"Collector's edition with a red board cover, an exposed hand-sewn spine and an acetate jacket that works as a red filter, revealing an alternate cover underneath.",u:"https://jhamboink.com/bartleby-the-scrivener/"},
+{c:"books",img:"b-alice",r:.618,sc:"#5d2a86",st:"#ff3f6f",ff:"'Bebas Neue',sans-serif",ls:".18em",g:1.5,hf:.8,pub:"JI",n:"Alice's Adventures in Wonderland & Under Ground",sp:"Alice's Adventures",by:"Lewis Carroll",shop:"Jhambo Ink",p:330,pl:"€330",orig:"£287",d:"Both books sewn into one cloth-linen volume with 70 illustrations by Zansky, in a rigid illustrated case, with playing cards and a ribbon bookmark.",u:"https://jhamboink.com/alices-adventures-under-ground-in-wonder-land/"},
+{c:"books",img:"b-dorian",r:.716,sc:"#f2cf06",st:"#6f5c00",ff:"'Cormorant Garamond',serif",ls:".06em",g:1.1,hf:.86,pub:"JI",n:"The Picture of Dorian Gray",sp:"The Picture of Dorian Gray",by:"Oscar Wilde",shop:"Jhambo Ink",p:171,pl:"€171",orig:"£149 / £268",d:"The uncensored 1889 text with seventeen oil paintings by Gustavo Magalhães, an exposed sewn spine and hand-painted edges. Available as an Artist's Edition (£149) or a Collector's Edition (£268).",u:"https://jhamboink.com/dorian-gray/"},
+{c:"books",img:"b-wiggles",r:.783,sc:"#c4c7cb",st:"#e2412d",ff:"'Bebas Neue',sans-serif",ls:".1em",g:1,hf:.93,pub:"TSP",n:"Solid Wiggles",by:"Jena Derman & Jack Schramm",shop:"Amazon",p:25,pl:"€25",d:"Recipes and techniques for over 45 jelly shots and jelly cakes, boozy and alcohol-free, from the founders of Solid Wiggles.",u:"https://www.amazon.com.be/dp/0593838149"},
+{c:"books",img:"b-lanchester",r:.648,sc:"#efe8da",st:"#1d1a14",ff:"'Cormorant Garamond',serif",fw:700,ls:".01em",g:1.25,hf:1,pub:"ff",n:"Look What You Made Me Do",by:"John Lanchester",shop:"Amazon",p:25,pl:"€25",d:"John Lanchester's novel about a TV show that turns out to be about your own marriage.",u:"https://www.amazon.com.be/-/en/Look-What-You-Made-bestseller/dp/0571298664"},
+{c:"books",img:"b-ovid",r:.657,sc:"#e87d22",st:"#f6e88e",ff:"'Cormorant Garamond',serif",ls:".02em",g:1.2,hf:.97,pub:"ff",n:"Tales from Ovid",by:"Ted Hughes",shop:"Amazon",p:15,pl:"€15",d:"Twenty-four passages from Ovid's Metamorphoses retold by Ted Hughes.",u:"https://www.amazon.com.be/-/nl/Ted-Hughes/dp/0571191037"},
+{c:"books",img:"b-norman",r:.681,sc:"#ebebe8",st:"#3a3a3a",ff:"Inter,sans-serif",ls:".02em",g:.95,hf:.92,pub:"MIT",n:"Living with Complexity",by:"Donald A. Norman",shop:"bol.com",p:25,pl:"€25",d:"Don Norman on why complexity isn't the enemy, bad design is.",u:"https://www.bol.com/be/nl/p/living-with-complexity/9200000051110422/"},
+{c:"glass",sq:"nicknora",n:"Nick & Nora glass 14cl, 2-pack",shop:"Orrefors × Björn Frantzén",p:70,pl:"€70",d:"Lead-free crystal with a slender, clean silhouette, for stirred cocktails served up. Set of two.",u:"https://www.orrefors.com/orrefors-x-bj%C3%B6rn-frantz%C3%A9n-nick-and-nora-14cl-2-pack"},
+{c:"glass",sq:"coupe",n:"Coupe glass 21cl, 2-pack",shop:"Orrefors × Björn Frantzén",p:70,pl:"€70",d:"Same series as the Nick & Nora, for shaken drinks served without ice. Set of two.",u:"https://www.orrefors.com/orrefors-x-bj%C3%B6rn-frantz%C3%A9n-coupe-21cl-2-pack"},
+{c:"glass",sq:"borough",n:"Borough martini glass 195ml",shop:"LSA International",p:46,pl:"€46",orig:"£40, set of 4",d:"Modern martini glasses with fine stems and flat feet. Set of four.",u:"https://www.lsa-international.com/products/borough-martini-glass?variant=53379175842125"},
+{c:"glass",sq:"montreal",n:"Montréal 17cl",shop:"Lehmann Glass",p:123,pl:"€123",d:"Handmade lead-free crystal cocktail glass from the La Créative collection. Box of six.",u:"https://www.lehmann-sa.com/en/product/montreal-17-cl/"},
+{c:"glass",sq:"london",n:"London 20cl",shop:"Lehmann Glass",p:53.7,pl:"€53.70",d:"Cocktail glass from the La Créative collection, lead-free crystal. Box of six.",u:"https://www.lehmann-sa.com/en/product/london-20-cl/"},
+{c:"glass",sq:"zalto",n:"Zalto Bourgogne glass",shop:"Roels",p:36.5,pl:"€36.50",d:"Mouth-blown Austrian crystal wine glass, extremely light. Price per glass.",u:"https://www.roels.be/nl/webshop/zalto-bourgogne-glas"},
+{c:"glass",sq:"flask",n:"Flask Jar",shop:"ET Glass",p:30,pl:"€30",orig:"$35",d:"Made from an upcycled wine bottle, keeping the original screw thread and cap. Each one is slightly different.",u:"https://etglass.net/products/flask-jar"},
+{c:"home",sq:"mushroom",n:"Oyster mushroom log kit",shop:"Williams Sonoma",p:26,pl:"€26",orig:"$29.95",d:"Grow oyster mushrooms at home, indoors or out.",u:"https://www.williams-sonoma.com/products/oyster-mushroom-log/"},
+{c:"home",sq:"mallard",n:"Mallard tabletop lighter",shop:"Edie Parker",p:217,pl:"€217",orig:"$250",d:"A hand-painted mallard duck that's also a table lighter.",u:"https://edie-parker.com/products/mallard-tabletop-lighter"},
+{c:"home",sq:"marcel",n:"Marcel le décapsuleur",shop:"Wouters & Hendrix",p:80,pl:"€80",d:"A mussel-shaped bottle opener, a nod to Marcel Broodthaers.",u:"https://wouters-hendrix.com/collections/les-objets-mouleversants/products/marcel-le-decapsuleur"},
+{c:"home",sq:"looprope",n:"Loop Rope",shop:"Peppermint Products",p:125,pl:"€125",d:"A rope that hangs from the ceiling and works as an open wardrobe or towel hanger. In red.",u:"https://peppermintproducts.com/products/loop-ropes?variant=45689738756364"},
+{c:"home",sq:"goldfish",n:"Goldfish bowl",shop:"Suck UK",p:20,pl:"€20",d:"A white ceramic bowl with a hand-painted 3D goldfish at the bottom.",u:"https://www.amazon.com.be/-/en/SUCK-UK-Novelty-Bowl-Shape/dp/B07P5NHQM3"},
+{c:"home",sq:"pencase",n:"Bendy pen case / Luddite",shop:"Bungu Store",p:25,pl:"€25",orig:"¥4,400",d:"Pen case in Japanese denim or canvas that opens flat into a pen tray.",u:"https://bungu.store/products/bendy-pen-case-luddite?variant=45301056766052"},
+{c:"clothes",sq:"hoodie",n:"Knit hoodie",shop:"Zara",p:39.95,pl:"€39.95",note:"Size M",d:"Zip-up knit hoodie with a drawstring hood.",u:"https://www.zara.com/be/en/knit-hoodie-p02142117.html?v1=597908268"},
+{c:"clothes",sq:"dress1",n:"Embroidered cotton nightdress",shop:"Zara",p:49.99,pl:"€49.99",d:"Midi cotton nightdress with embroidery along the neckline and straps.",u:"https://www.zara.com/be/en/embroidered-cotton-nightdress-p44192121.html?v1=550303506"},
+{c:"clothes",sq:"dress2",n:"Embroidered cotton nightdress",shop:"Zara",p:49.99,pl:"€49.99",d:"Mid-length cotton nightdress with a lace-edged square neckline and floral embroidery.",u:"https://www.zara.com/be/en/embroidered-cotton-nightdress-p44122121.html?v1=547646335"},
+{c:"clothes",sq:"dress3",n:"Strappy nightdress with lace and pintucks",shop:"Zara",p:59.99,pl:"€59.99",d:"Cotton nightdress with lace and pintucks at the top.",u:"https://www.zara.com/be/en/strappy-nightdress-with-lace-and-pintucks-p42513121.html?v1=545413377"},
+{c:"clothes",sq:"hipster",n:"Seamless cotton hipster",shop:"Veritas",p:9.99,pl:"€9.99",note:"Size M · all colours",d:"Seamless cotton hipster. I have one in medium and would love it in every colour.",u:"https://www.veritas.be/nl_be/hipster-naadloze-afwerking-insua-122239560001-e00"},
+{c:"clothes",sq:"pouch",n:"Undies pouch in red stripe",shop:"Edie Parker",p:83,pl:"€83",orig:"$95",d:"A padded pouch shaped like a pair of briefs, with a kiss-lock frame.",u:"https://edie-parker.com/collections/shop-all/products/white-undies-pouch-in-red-stripe"},
+{c:"clothes",sq:"ring",n:"Thorned ring ensemble with heart-shaped garnet",shop:"Wouters & Hendrix",p:310,pl:"€310",d:"Handmade in Antwerp, from the Forbidden Fruit collection.",u:"https://wouters-hendrix.com/collections/forbidden-fruit/products/thorned-ring-ensemble-with-heart-shaped-garnet"},
+{c:"clothes",sq:"heart",n:"Stud earring with heart-shaped garnet and removable arrow",shop:"Wouters & Hendrix",p:190,pl:"€190",d:"Handmade in Antwerp, from the Forbidden Fruit collection.",u:"https://wouters-hendrix.com/collections/forbidden-fruit/products/single-stud-earring-with-heart-shaped-garnet-and-removable-arrow"},
+{c:"clothes",sq:"chains",n:"Stud earring with spring ring and falling chains",shop:"Wouters & Hendrix",p:160,pl:"€160",d:"Handmade in Antwerp, from the Midnight Children collection.",u:"https://wouters-hendrix.com/collections/all-jewellery/products/single-stud-earring-with-spring-ring-and-falling-chains"},
+{c:"clothes",sq:"sock-vroum",n:"Vroum crew socks",shop:"Bellerose",p:19,pl:"€19",note:"Shoe size 39–40",d:"Cotton crew socks.",u:"https://bellerose.com/nl/products/unisex-sokken-vroum-oyster"},
+{c:"clothes",sq:"sock-nbred",n:"New Balance Pro Run crew socks",shop:"Bellerose",p:16,pl:"€16",note:"Shoe size 39–40",d:"Running crew socks in red.",u:"https://bellerose.com/nl/products/dames-sokken-ac5646znef-red"},
+{c:"clothes",sq:"sock-nbcream",n:"New Balance Marathon Pro Run crew socks",shop:"Bellerose",p:16,pl:"€16",note:"Shoe size 39–40",d:"Running crew socks in cream.",u:"https://bellerose.com/nl/products/dames-sokken-ac03491nefw-cream"},
+{c:"clothes",sq:"sock-vem",n:"Vem crew socks",shop:"Bellerose",p:25,pl:"€25",note:"Shoe size 39–40",d:"Ribbed crew socks in scarlet.",u:"https://bellerose.com/nl/products/dames-sokken-vem-ecarlate"},
+{c:"clothes",sq:"socks",n:"Any other good socks",shop:"Your pick",p:15,pl:"",note:"Shoe size 39–40",wild:1,d:"Any other high-quality socks make me happy too.",u:""},
+{c:"tech",sq:"charger",n:"Apple 20W USB-C power adapter",shop:"bol.com",p:20,pl:"€20",d:"The 20W USB-C fast charger.",u:"https://www.bol.com/be/nl/p/apple-20w-usb-c-snellader-iphone-oplader-wit/9300000013742360/"},
+{c:"tech",sq:"fitbit",n:"Google Fitbit Air",shop:"Google Store",p:99.99,pl:"€99.99",note:"Black",d:"A light activity and sleep tracker for the wrist.",u:"https://store.google.com/be/product/google_fitbit_air?hl=nl"},
+{c:"tech",sq:"microduck",n:"Microduck",shop:"Pollen Robotics",p:340,pl:"€340",d:"A small walking robot duck with an open-source SDK, for AI experiments and play.",u:"https://store.pollen-robotics.com/products/microduck"}
+];
+{const keep=I.filter((x)=>x.p<40);I.length=0;I.push(...keep);}
+
+let cat="all",tier="any",act=-1;
+const $=(s)=>document.querySelector(s);
+const esc=(s)=>String(s).replace(/[&<>"]/g,(m)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const tierOf=(t)=>TIERS.find((x)=>x[0]===t);
+const inTier=(it)=>{const t=tierOf(tier);return it.wild||(it.p>=t[2]&&it.p<t[3])};
+const real=I.filter((i)=>!i.wild);
+
+const src=(it)=>it.c==="books"?`../img/${it.img}.webp`:`../sq/${it.sq}.jpg`;
+const has=(it)=>it.img||it.sq;
+const pic=(it)=>has(it)?`<img src="${src(it)}" alt="${esc(it.n)}"${it.c==="books"?' class="cover"':''} loading="lazy">`:`<span class="ph">photo coming</span>`;
+const sub=(it)=>[it.shop,it.by,it.note].filter(Boolean).map(esc).join(" · ");
+const capt=(it,i)=>`<div class="top"><h3>${esc(it.n)}</h3><span class="price">${it.pl||"your pick"}</span></div><span class="sub">${sub(it)}</span><button class="more" data-i="${i}">more info</button>`;
+const drawBar=()=>{
+$("#cats").innerHTML=CATS.map(([k,l])=>`<button aria-pressed="${k===cat}" data-k="${k}">${l}<sup>${real.filter((i)=>k==="all"||i.c===k).length}</sup></button>`).join('');
+const pool=real.filter((i)=>cat==="all"||i.c===cat);
+$("#pills").innerHTML=TIERS.filter(([k,,lo,hi])=>k==="any"||pool.some((i)=>i.p>=lo&&i.p<hi)).map(([k,l])=>`<button aria-pressed="${k===tier}" data-t="${k}">${l}</button>`).join('')};
+const MOB=()=>innerWidth<600;
+const shelf=()=>{const bs=I.map((b,i)=>[b,i]).filter(([b])=>b.c==="books"&&inTier(b));
+if(!bs.length)return '';
+if(MOB())return '';
+return `<div class="shelf${cat==="all"?" plank":""}" id="shelf"><div class="row">${bs.map(([b,i])=>`<div class="book${i===act?" on":""}" data-b="${i}" tabindex="0" role="button" aria-label="${esc(b.n)}" style="--sc:${b.sc};--st:${b.st};--ff:${b.ff};--fw:${b.fw||400};--ls:${b.ls};--g:${b.g};--hf:${b.hf}">
+<div class="bwrap"><div class="stage"><div class="face spine"><span class="a">${esc(b.by.split(" & ")[0].split(" ").slice(-1)[0].toUpperCase())}</span><span class="t">${esc(b.sp||b.n)}</span><span class="p">${b.pub}</span></div>
+<div class="face front"><img src="../img/${b.img}.webp" alt="Cover of ${esc(b.n)}"></div></div>
+<div class="bcap"><div class="top"><h3>${esc(b.n)}</h3><span class="price">${b.pl}</span></div><span class="sub">${esc(b.by)} · ${esc(b.shop)}</span><br><button class="more" data-i="${i}">more info</button></div></div></div>`).join('')}</div><div class="shelfspace"></div></div>`};
+const sizeShelf=()=>{const s=$("#shelf");if(!s||MOB())return;const nh=$("#nav").offsetHeight;document.documentElement.style.setProperty("--navh",nh+"px");
+const ph=$("#pills").offsetHeight;const row=s.querySelector(".row");const W=row.clientWidth,mob=W<600;
+const H0=Math.max(280,Math.min(cat==="all"?520:640,innerHeight-nh-ph-(mob?190:230)));
+const allB=[...s.querySelectorAll(".book")].map((b)=>I[+b.dataset.b]);const gS=allB.reduce((t,x)=>t+x.g,0);const rM=Math.max(...allB.map((x)=>x.hf*x.r));
+const H=Math.min(H0,(W-(mob?24:64)-allB.length*2-(gS-1)*(mob?18:30))/rM);
+const it=act>=0?I[act]:null;let cw=it?H*it.hf*it.r:0;const ah=it?H*it.hf:0;
+const books=[...s.querySelectorAll(".book")];const cwMax=Math.max(...books.map((b)=>H*I[+b.dataset.b].hf*I[+b.dataset.b].r));const sumG=books.reduce((t,b)=>t+I[+b.dataset.b].g,0)||1;
+const marg=mob?24:64;const sw=Math.max(14,Math.min(mob?30:56,(W-cwMax-marg-books.length*2)/sumG));
+s.style.setProperty("--sh",H+"px");s.style.setProperty("--cw",Math.round(cw)+"px");s.style.setProperty("--ah",Math.round(ah)+"px");s.style.setProperty("--sw",sw.toFixed(1)+"px");
+if(mob){const rl=row.getBoundingClientRect().left;requestAnimationFrame(()=>setTimeout(()=>books.forEach((b)=>{const c=b.querySelector(".bcap");c.style.left=(rl-b.getBoundingClientRect().left)+"px";c.style.width=W+"px"}),560))}
+books.forEach((b)=>{const y=I[+b.dataset.b];b.style.setProperty('--bw',(H*y.hf*y.r).toFixed(1)+'px')});
+books.forEach((b)=>{const x=I[+b.dataset.b],t=x.sp||x.n,mono=x.ff.includes("Mono"),ls=parseFloat(x.ls)||0;
+const fs=Math.max(10,Math.min(sw*x.g*.5,26,H*x.hf*.7/(t.length*((mono?.64:x.fw?.6:.52)+ls))));b.style.setProperty("--fs",fs.toFixed(1)+"px")})};
+const setAct=(i)=>{if(i===act)return;act=i;document.querySelectorAll(".book").forEach((b)=>b.classList.toggle("on",+b.dataset.b===i));sizeShelf()};
+const render=()=>{drawBar();const isB=cat==="books"&&!MOB(),withS=(cat==="books"||cat==="all")&&!MOB();$("#shelfBand").hidden=!withS;$("#gridBand").hidden=isB;
+if(withS&&!isB){$("#shelfBand").innerHTML=shelf();requestAnimationFrame(sizeShelf)}
+if(isB){$("#shelfBand").innerHTML=shelf();requestAnimationFrame(sizeShelf);return}
+const list=I.map((it,i)=>[it,i]).filter(([it])=>(MOB()||it.c!=="books")&&(cat==="all"||it.c===cat)&&inTier(it));
+$("#grid").innerHTML=list.length?list.map(([it,i])=>`<article class="item"><button class="frame" data-i="${i}" aria-label="More info: ${esc(it.n)}">${pic(it)}</button><div class="cap">${capt(it,i)}</div></article>`).join(''):`<p class="empty">Nothing in this price range.</p>`};
+const open=(i)=>{const it=I[i],d=$("#drawer");
+d.innerHTML=`<button class="x" id="x">close</button><div class="art">${has(it)?`<img src="${src(it)}" alt="${esc(it.n)}"${it.c==="books"?' class="cover"':''}>`:''}</div>
+<span style="color:var(--mute)">${esc(it.shop)}${it.by?" · "+esc(it.by):""}</span><h3>${esc(it.n)}</h3>${it.pl?`<p class="pr">${it.pl}${it.orig?` <span style="color:var(--mute);font-size:15px">(${esc(it.orig)})</span>`:''}</p>`:''}
+${it.note?`<p class="note">${esc(it.note)}</p>`:''}<p>${esc(it.d)}</p>
+${it.u?`<a class="go" href="${it.u}" target="_blank" rel="noopener">Shop at ${esc(it.shop)} ↗</a>`:''}`;
+$("#dw").classList.add("open");d.focus();$("#x").addEventListener("click",close)};
+const close=()=>$("#dw").classList.remove("open");
+document.addEventListener("click",(e)=>{const t=e.target.closest("[data-k],[data-t],[data-i],[data-b]");if(!t)return;
+if(t.dataset.k){cat=t.dataset.k;tier="any";history.replaceState(null,"",cat==="all"?" ":"#"+cat);render()}
+else if(t.dataset.t){tier=t.dataset.t;render()}
+else if(t.dataset.i){e.stopPropagation();open(+t.dataset.i)}
+else if(t.dataset.b){setAct(+t.dataset.b);open(+t.dataset.b)}});
+document.addEventListener("mouseout",(e)=>{const r=e.target.closest&&e.target.closest(".row");if(r&&!(e.relatedTarget&&r.contains(e.relatedTarget))&&matchMedia("(hover:hover)").matches)setAct(-1)});
+document.addEventListener("mouseover",(e)=>{const b=e.target.closest("[data-b]");if(b&&matchMedia("(hover:hover)").matches)setAct(+b.dataset.b)});
+document.addEventListener("focusin",(e)=>{const b=e.target.closest&&e.target.closest("[data-b]");if(b)setAct(+b.dataset.b)});
+document.addEventListener("keydown",(e)=>{if(e.key==="Escape")close();if(e.key==="Enter"&&e.target.classList&&e.target.classList.contains("book"))open(+e.target.dataset.b)});
+$("#scrim").addEventListener("click",close);
+let wasM=MOB();const ro=new ResizeObserver(()=>{if(MOB()!==wasM){wasM=MOB();render()}else sizeShelf()});ro.observe(document.body);
+const fromHash=()=>{const h=location.hash.slice(1);cat=CATS.some((c)=>c[0]===h)?h:"all";tier="any";render()};
+window.addEventListener("hashchange",fromHash);fromHash();
+}
+</script>
+</body>
+</html>
