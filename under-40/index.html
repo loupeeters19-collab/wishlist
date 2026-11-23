@@ -158,7 +158,7 @@ const I=[
 {c:"tech",sq:"fitbit",n:"Google Fitbit Air",shop:"Google Store",p:99.99,pl:"€99.99",note:"Black",d:"A light activity and sleep tracker for the wrist.",u:"https://store.google.com/be/product/google_fitbit_air?hl=nl"},
 {c:"tech",sq:"microduck",n:"Microduck",shop:"Pollen Robotics",p:340,pl:"€340",d:"A small walking robot duck with an open-source SDK, for AI experiments and play.",u:"https://store.pollen-robotics.com/products/microduck"}
 ];
-{const keep=I.filter((x)=>x.p<40);I.length=0;I.push(...keep);}
+{const keep=I.filter((x)=>x.p<40&&x.sq!=="zalto");I.length=0;I.push(...keep);}
 
 let cat="all",tier="any",act=-1;
 const $=(s)=>document.querySelector(s);
